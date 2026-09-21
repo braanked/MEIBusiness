@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR" data-appearance="liquid">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f6f8">
+    <meta name="description" content="MEIBusiness: organize transações, orçamentos e metas. Suas finanças pessoais, com clareza.">
+    <title>MEIBusiness · Finanças pessoais</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%230071e3'/%3E%3Cpath d='M10 29V11l10 12 10-12v18' fill='none' stroke='white' stroke-width='3.5' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="motion.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+</head>
+<body>
+    <a class="skip" href="#main">Pular para o conteúdo</a>
+    <header class="glass nav">
+        <a class="brand" href="#overview" data-view="overview" aria-label="MEIBusiness, visão geral"><span class="brand-icon" aria-hidden="true">M</span><span>MEIBusiness</span></a>
+        <nav aria-label="Principal">
+            <button data-view="overview" class="active">Visão geral</button>
+            <button data-view="transactions">Transações</button>
+            <button data-view="budgets">Orçamentos</button>
+            <button data-view="goals">Metas</button>
+        </nav>
+        <div class="nav-actions">
+            <a class="instagram-btn glass" href="https://www.instagram.com/pedrohistark/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de @pedrohistark (abre em nova aba)" title="Instagram: @pedrohistark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                <span>@pedrohistark</span>
+            </a>
+            <button class="icon-btn settings" aria-label="Configurações" title="Configurações" data-action="settings">⚙</button>
+        </div>
+    </header>
+    <main id="main" tabindex="-1">
+        <div class="topline"><span>UM POUCO MAIS DE TRANQUILIDADE</span><button id="mode" class="mode" data-action="mode">Modo demonstração <span>↗</span></button></div>
+        <section class="heading">
+            <div><p class="greeting">Olá. Vamos cuidar do que importa?</p><h1>Seu dinheiro,<br class="mobile-break"> com clareza.</h1><p class="subtitle" id="subtitle">Uma visão simples para escolhas mais conscientes.</p></div>
+            <div class="head-actions">
+                <div class="month-control glass"><button data-action="prev" aria-label="Mês anterior">‹</button><input type="month" id="month" min="1000-01" max="9999-12" aria-label="Mês de referência"><button data-action="next" aria-label="Próximo mês">›</button></div>
+                <button class="primary" data-action="add-transaction"><span>＋</span> Adicionar transação</button>
+            </div>
+        </section>
+        <div id="content"></div>
+        <footer><span class="footer-brand">MEIBusiness</span><span>Seu próximo passo começa com clareza.</span><button data-action="settings">Armazenado neste navegador <span>↗</span></button></footer>
+    </main>
+    <dialog id="dialog" aria-labelledby="dialog-title"><div id="dialog-content"></div></dialog>
+    <div id="toast" role="status" aria-live="polite" hidden></div>
+    <script src="core.js"></script>
+    <script src="appearance.js"></script>
+    <script src="app.js"></script>
+    <script src="actions.js"></script>
+</body>
+</html>

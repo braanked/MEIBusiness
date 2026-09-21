@@ -1,0 +1,361 @@
+/* Shared liquid glass surfaces. Only the hovered surface animates. */
+:where(.glass, .card, .primary, .mode) {
+    position: relative;
+}
+
+:where(.glass, .card, dialog, .primary, .mode, #toast) {
+    --glass-x: 0px;
+    --glass-y: 0px;
+    --glass-light: 0;
+    --glass-pointer-x: 50%;
+    --glass-pointer-y: 50%;
+    isolation: isolate;
+    transition: background-color .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(118deg, #e7f3ef70, transparent 42%),
+        linear-gradient(305deg, #f4eaf070, transparent 52%), #f3f6f9;
+    background-attachment: fixed;
+}
+
+:is(.glass, .card, dialog) {
+    background: rgba(255, 255, 255, .48);
+    backdrop-filter: blur(22px) saturate(155%);
+    -webkit-backdrop-filter: blur(22px) saturate(155%);
+    border: 1px solid #ffffffd9;
+    box-shadow: 0 8px 28px #263c5510, inset 0 1px 1px #fffffff0, inset 0 -1px 1px #aac4d84d;
+}
+
+.stat.balance {
+    background: #e0effa73;
+    border-color: #ffffffdf;
+}
+
+#dialog {
+    position: fixed;
+    background: #f7fafbd9;
+    box-shadow: 0 24px 80px #20364b35, inset 0 1px 1px #fff;
+}
+
+:is(.glass, .card, dialog, .primary, .mode, #toast)::before,
+:is(.glass, .card, dialog, .primary, .mode, #toast)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+}
+
+:is(.glass, .card, dialog, .primary, .mode, #toast)::before {
+    background: linear-gradient(125deg, #ffffffad, #ffffff08 38%, #a5dad71a 70%, #ffffff78);
+    background-size: 120% 120%;
+    background-position: calc(50% + var(--glass-x)) calc(50% + var(--glass-y));
+    opacity: calc(.3 + var(--glass-light) * .3);
+}
+
+:is(.glass, .card, dialog, .primary, .mode, #toast)::after {
+    inset: 1px;
+    border: 1px solid #ffffff7a;
+    background: radial-gradient(ellipse at var(--glass-pointer-x) var(--glass-pointer-y), #ffffffd9, #ffffff26 38%, transparent 72%);
+    opacity: calc(.08 + var(--glass-light) * .72);
+}
+
+:is(.primary, #toast)::before,
+:is(.primary, #toast)::after {
+    opacity: calc(.05 + var(--glass-light) * .22);
+}
+
+.glass-lite :is(.glass, .card, dialog, .primary, .mode, #toast)::before {
+    display: none;
+}
+
+:is(.filters input, .filters select, form input, form select) {
+    background: #ffffff7a;
+    border-color: #cbd9e39c;
+    box-shadow: inset 0 1px 2px #ffffffb3;
+}
+
+:is(.filters input, .filters select, form input, form select):focus {
+    background: #ffffffbd;
+}
+
+.settings-box {
+    background: #e9f0f480;
+    border-radius: 8px;
+}
+
+@keyframes arrive {
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes chart-rise {
+    from {
+        transform: scaleY(.92);
+        opacity: .4;
+    }
+
+    to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes confirm {
+    from {
+        opacity: 0;
+        translate: 0 8px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+.bar-group {
+    min-width: 0;
+    padding: 0;
+}
+
+.bar,
+.track>div {
+    transform-origin: bottom;
+    animation: chart-rise .32s cubic-bezier(.2, .7, .3, 1) both;
+}
+
+@keyframes progress-fill {
+    from {
+        transform: scaleX(.94);
+        opacity: .5;
+    }
+
+    to {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+.track>div {
+    transform-origin: left;
+    animation-name: progress-fill;
+}
+
+.stat-value {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 3px 6px;
+    animation: arrive .26s ease both;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-value span {
+    max-width: 100%;
+}
+
+dialog[open] {
+    animation: arrive .2s cubic-bezier(.2, .7, .3, 1);
+}
+
+dialog.closing {
+    opacity: 0;
+    transform: translateY(5px) scale(.99);
+    transition: opacity .14s ease, transform .14s ease;
+}
+
+dialog.closing::backdrop {
+    opacity: 0;
+    transition: opacity .14s ease;
+}
+
+#toast:not([hidden]) {
+    animation: confirm .2s ease;
+}
+
+button {
+    transition: background-color .18s ease, box-shadow .18s ease, color .18s ease;
+}
+
+button:focus-visible {
+    box-shadow: 0 0 0 5px #0071e314;
+}
+
+.table-wrap {
+    max-height: 600px;
+    overflow: auto;
+}
+
+.table-wrap:focus-visible {
+    outline: 3px solid #1688f2;
+    outline-offset: 3px;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background: #f5f9f7e8;
+    backdrop-filter: blur(12px);
+    z-index: 1;
+}
+
+.table-pages {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    font-size: 13px;
+}
+
+.table-pages button {
+    min-height: 36px;
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: default;
+}
+
+input[type="month"] {
+    min-width: 0;
+}
+
+html {
+    scroll-padding-top: 125px;
+}
+
+.nav {
+    overflow: hidden;
+}
+
+.progress-top .pill {
+    white-space: normal;
+    text-align: right;
+}
+
+.form-actions .primary {
+    flex-shrink: 1;
+}
+
+.card,
+.stats,
+.charts,
+.grid {
+    min-width: 0;
+}
+
+@media(max-width:760px) {
+    .stat-value {
+        font-size: 24px
+    }
+
+    .table-wrap {
+        max-height: 480px
+    }
+
+    .row-actions button {
+        min-height: 32px;
+        min-width: 32px
+    }
+
+    nav button {
+        font-size: 13px;
+        min-height: 38px;
+        padding-inline: 5px
+    }
+
+    .card-head {
+        flex-wrap: wrap
+    }
+
+    .section-toolbar {
+        flex-wrap: wrap
+    }
+
+    .month-control {
+        flex: 1;
+        max-width: 230px
+    }
+
+    .month-control input {
+        flex: 1
+    }
+
+    .head-actions>.primary {
+        flex: 1;
+        white-space: nowrap
+    }
+
+    .distribution {
+        flex-wrap: wrap
+    }
+
+    .nav .brand {
+        min-width: 0
+    }
+}
+
+@media(max-width:380px) {
+    nav button {
+        font-size: 12px;
+        padding-inline: 4px
+    }
+
+    .stat-value {
+        font-size: 20px
+    }
+
+    .form-row {
+        grid-template-columns: 1fr
+    }
+
+    dialog {
+        padding: 22px
+    }
+
+    .dialog-head h2 {
+        font-size: 21px
+    }
+}
+
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+
+    :is(.glass, .card, dialog) {
+        background: #f5f7faf5;
+        border-color: #d5deea
+    }
+
+    :is(.glass, .card, dialog, .primary, .mode, #toast)::before,
+    :is(.glass, .card, dialog, .primary, .mode, #toast)::after {
+        display: none
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+    .glass::before,
+    .glass::after {
+        transform: none !important;
+    }
+}
